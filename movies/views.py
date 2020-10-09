@@ -1,3 +1,17 @@
+from django.conf import settings
+from django.db import models
+from django.db.models import Q, OuterRef, Subquery, Case, When
+from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render
+from django.views.generic import ListView, DetailView
+from django.views.generic.base import View
 
-# Create your views here.
+from .models import Movie, Category, Actor, Genre, Rating, Reviews
+# from .forms import ReviewForm, RatingForm
+
+
+class MoviesView(View):
+    """Список фильмов"""
+    def get(self, request):
+        movies = Movie.objects.all()
+        return render(request, "movies/movies.html", {"movie_list": movies})
