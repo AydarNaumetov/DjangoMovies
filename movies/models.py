@@ -1,6 +1,8 @@
 from django.db import models
 from datetime import date
 
+from django.urls import reverse
+
 
 class Category(models.Model):
     """Категории"""
@@ -26,9 +28,6 @@ class Actor(models.Model):
     def __str__(self):
         return self.name
 
-    # def get_absolute_url(self):
-    #     return reverse('actor_detail', kwargs={"slug": self.name})
-
     class Meta:
         verbose_name = "Актеры и режиссеры"
         verbose_name_plural = "Актеры и режиссеры"
@@ -48,7 +47,6 @@ class Genre(models.Model):
         verbose_name_plural = "Жанры"
 
 
-
 class Movie(models.Model):
     """Фильм"""
     title = models.CharField("Название", max_length=100)
@@ -60,9 +58,8 @@ class Movie(models.Model):
     directors = models.ManyToManyField(Actor, verbose_name="режиссер", related_name="film_director")
     actors = models.ManyToManyField(Actor, verbose_name="актеры", related_name="film_actor")
     genres = models.ManyToManyField(Genre, verbose_name="жанры")
-    world_premiere = models.DateField("Премьера в мире", default=date.today)
-    budget = models.PositiveIntegerField("Бюджет", default=0,
-                                         help_text="указывать сумму в долларах")
+    world_premiere = models.DateField("Примьера в мире", default=date.today)
+    budget = models.PositiveIntegerField("Бюджет", default=0, help_text="указывать сумму в долларах")
     fees_in_usa = models.PositiveIntegerField(
         "Сборы в США", default=0, help_text="указывать сумму в долларах"
     )
@@ -78,11 +75,11 @@ class Movie(models.Model):
     def __str__(self):
         return self.title
 
-    # def get_absolute_url(self):
-    #     return reverse("movie_detail", kwargs={"slug": self.url})
+    def get_absolute_url(self):
+        return reverse("movie_detail", kwargs={"slug": self.url})
 
-    # def get_review(self):
-    #     return self.reviews_set.filter(parent__isnull=True)
+    def get_review(self):
+        return self.reviews_set.filter(parent__isnull=True)
 
     class Meta:
         verbose_name = "Фильм"
@@ -109,19 +106,18 @@ class RatingStar(models.Model):
     value = models.SmallIntegerField("Значение", default=0)
 
     def __str__(self):
-        return f'{self.value}'
+        return self.value
 
     class Meta:
         verbose_name = "Звезда рейтинга"
         verbose_name_plural = "Звезды рейтинга"
-        # ordering = ["-value"]
 
 
 class Rating(models.Model):
     """Рейтинг"""
     ip = models.CharField("IP адрес", max_length=15)
     star = models.ForeignKey(RatingStar, on_delete=models.CASCADE, verbose_name="звезда")
-    movie = models.ForeignKey(Movie, on_delete=models.CASCADE, verbose_name="фильм", related_name="ratings")
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE, verbose_name="фильм")
 
     def __str__(self):
         return f"{self.star} - {self.movie}"
@@ -129,6 +125,7 @@ class Rating(models.Model):
     class Meta:
         verbose_name = "Рейтинг"
         verbose_name_plural = "Рейтинги"
+
 
 class Reviews(models.Model):
     """Отзывы"""
@@ -146,5 +143,3 @@ class Reviews(models.Model):
     class Meta:
         verbose_name = "Отзыв"
         verbose_name_plural = "Отзывы"
-
-
