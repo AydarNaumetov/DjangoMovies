@@ -7,5 +7,17 @@
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
       <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/db.sqlite3</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="rms-bilimland-kz@185.35.222.51" uuid="15976834-9987-4f5a-9ae3-8bc80896e941">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://185.35.222.51:3306/rms-bilimland-kz</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="online-mektep-general@185.22.65.197" uuid="76871d8a-1178-436d-905e-45d2abe8f1ed">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://185.22.65.197:3306/online-mektep-general</jdbc-url>
+    </data-source>
   </component>
 </project>

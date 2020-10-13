@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'ckeditor',
+    'ckeditor_uploader',
     'movies',
 ]
 
@@ -121,9 +123,56 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATIC_DIR = os.path.join(BASE_DIR, 'static')
-STATICFILES_DIRS = [STATIC_DIR]
+# STATIC_DIR = os.path.join(BASE_DIR, 'static')
+# STATICFILES_DIRS = [STATIC_DIR]
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
 
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+CKEDITOR_UPLOAD_PATH = "uploads/"
+
+CKEDITOR_CONFIGS = {
+'default': {
+    'toolbar': 'CMS',
+    'toolbar_CMS': [
+        {
+            'name': 'basicstyles',
+            'groups': ['basicstyles', 'cleanup'],
+            'items': ['Bold', 'Italic', 'Underline', '-', 'RemoveFormat']
+        },
+        {
+            'name': 'paragraph',
+            'groups': ['list', 'indent', 'blocks'],
+            'items': ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote']
+        },
+        {
+            'name': 'links',
+            'items': ['Link', 'Unlink']
+        },
+        {
+            'name': 'insert',
+            'items': ['Image', 'HorizontalRule', 'Table', 'Iframe', ]
+        },
+        {
+            'name': 'colors',
+            'items': ['TextColor', 'BGColor']
+        },
+        {
+            'name': 'youtube',
+            'items': ['Youtube',]
+        }
+    ],
+    'height': 400,
+    'width': '100%',
+    'allowedContent': True,
+    'uiColor': '#f0f0f0',
+    'extraPlugins': 'link,iframe,colorbutton,autogrow,youtube',
+    'autoGrow_maxHeight': 800,
+    'autoGrow_minHeight': 400,
+    'removePlugins': 'resize',
+    'removeButtons': None,
+},
+}
