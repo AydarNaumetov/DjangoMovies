@@ -41,9 +41,13 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     'movies',
+    'snowpenguin.django.recaptcha3',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -51,7 +55,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 ]
+CORS_ALLOW_HEADERS = (
+    'Access-Control-Allow-Headers',
+    'Access-Control-Allow-Credentials',
+    )
 
 ROOT_URLCONF = 'django_movie.urls'
 SETTINGS_PATH = os.path.dirname(os.path.dirname(__file__))
@@ -204,3 +213,17 @@ CKEDITOR_CONFIGS = {
         ]),
     }
 }
+
+RECAPTCHA_PUBLIC_KEY = "6Lc7MNcZAAAAAJQskc5zU0allRAcPI1yIejGzdIk"
+RECAPTCHA_PRIVATE_KEY = "6Lc7MNcZAAAAANNqb2QsjRdimoLhYg9AOT_X4cjG"
+RECAPTCHA_DEFAULT_ACTION = 'generic'
+RECAPTCHA_SCORE_THRESHOLD = 0.5
+
+CORS_ORIGIN_ALLOW_ALL = False
+
+CORS_ALLOWED_ORIGINS = [
+    "https://example.com",
+    "https://sub.example.com",
+    "http://localhost:8080",
+    "http://127.0.0.1:8000"
+]
